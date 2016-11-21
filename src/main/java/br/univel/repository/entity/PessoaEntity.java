@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  * @author Alexandre H. Noro
@@ -17,6 +19,17 @@ import javax.persistence.Table;
 
 @Entity // Declaração da Entidade
 @Table(name = "tb_pessoa") // Nome da tabela no banco de dados
+
+
+/**
+ * Responsável por retornar todos os registros cadastrados no nosso banco de dados.
+ */
+@NamedQueries({
+
+	@NamedQuery(name = "PessoaEntity.findAll",query= "SELECT p FROM PessoaEntity p")
+
+})
+
 /**
  * Classe com os métodos e annotations do objeto Pessoa.
  */
