@@ -59,6 +59,7 @@ public class PessoaRepository {
 
 	/**
 	 * Método responsável pela consulta de pessoas
+	 *
 	 * @return
 	 */
 	public List<PessoaModel> GetPessoas() {
@@ -105,6 +106,37 @@ public class PessoaRepository {
 
 		return pessoasModel;
 
+	}
+
+	/***
+	 * Método que realiza a consulta de uma pessoa cadastrada pelo código
+	 * @param codigo
+	 * @return
+	 */
+	private PessoaEntity GetPessoa(int codigo) {
+
+		entityManager = Uteis.JpaEntityManager();
+
+		return entityManager.find(PessoaEntity.class, codigo);
+	}
+
+	/***
+	 * Método que realiza a alteração de um registro cadastrado no banco de dados.
+	 *
+	 * @param pessoaModel
+	 */
+	public void AlterarRegistro(PessoaModel pessoaModel) {
+
+		entityManager = Uteis.JpaEntityManager();
+
+		PessoaEntity pessoaEntity = this.GetPessoa(pessoaModel.getCodigo());
+
+		pessoaEntity.setEmail(pessoaModel.getEmail());
+		pessoaEntity.setEndereco(pessoaModel.getEndereco());
+		pessoaEntity.setNome(pessoaModel.getNome());
+		pessoaEntity.setSexo(pessoaModel.getSexo());
+
+		entityManager.merge(pessoaEntity);
 	}
 
 }

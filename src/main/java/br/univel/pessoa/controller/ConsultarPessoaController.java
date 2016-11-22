@@ -17,27 +17,30 @@ import br.univel.repository.PessoaRepository;
  * @data 21 de nov de 2016 as 11:20:30
  */
 
-@Named(value="consultarPessoaController") //anotation que transforma a classe em um bean gerenciado pelo CDI.
-@ViewScoped //annotation em que o bean é mantido até a aplicação navegar para outra página.
+@Named(value = "consultarPessoaController") // anotation que transforma a classe em um bean gerenciado pelo CDI.
+
+@ViewScoped // annotation em que o bean é mantido até a aplicação navegar para outra página.
 
 /**
- * Classe com métodos para consulta de pessoas e injeção de dependencias nos objetos da classe.
+ * Classe com métodos para consulta de pessoas e injeção de dependencias nos
+ * objetos da classe.
  */
 public class ConsultarPessoaController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Inject transient
-	private PessoaModel pessoaModel;
+	@Inject
+	transient private PessoaModel pessoaModel;
 
 	@Produces
 	private List<PessoaModel> pessoas;
 
-	@Inject transient
-	private PessoaRepository pessoaRepository;
+	@Inject
+	transient private PessoaRepository pessoaRepository;
 
 	/**
 	 * Retorna uma lista de pessoas
+	 *
 	 * @return
 	 */
 	public List<PessoaModel> getPessoas() {
@@ -46,6 +49,7 @@ public class ConsultarPessoaController implements Serializable {
 
 	/**
 	 * Passado o valor da lista por parâmetro para o atributo da classe.
+	 *
 	 * @param pessoas
 	 */
 	public void setPessoas(List<PessoaModel> pessoas) {
@@ -54,6 +58,7 @@ public class ConsultarPessoaController implements Serializable {
 
 	/**
 	 * Retorna um objeto do tipo pessoaModel.
+	 *
 	 * @return
 	 */
 	public PessoaModel getPessoaModel() {
@@ -62,6 +67,7 @@ public class ConsultarPessoaController implements Serializable {
 
 	/**
 	 * Passado o valor de "pessoaModel" por parâmetro para o atributo da classe.
+	 *
 	 * @param pessoaModel
 	 */
 	public void setPessoaModel(PessoaModel pessoaModel) {
@@ -72,11 +78,36 @@ public class ConsultarPessoaController implements Serializable {
 	 * Realiza o carregamento de pessoas cadastradas no banco.
 	 */
 	@PostConstruct
-	public void init(){
+	public void init() {
 
-		//Retorna as pessoas cadastradas
+		// Retorna as pessoas cadastradas
 		this.pessoas = pessoaRepository.GetPessoas();
 	}
 
+	/***
+	 * Método que realiza o carregamento das informações de uma pessoa para ser
+	 * editada
+	 *
+	 * @param pessoaModel
+	 */
+	public void Editar(PessoaModel pessoaModel) {
+
+		// Vai usar apenas a primeira letra do sexo para mostrar no campo
+		pessoaModel.setSexo(pessoaModel.getSexo().substring(0, 1));
+
+		this.pessoaModel = pessoaModel;
+
+	}
+
+	/***
+	 * Método que realiza a atualização do registro que foi alterado
+	 */
+	public void AlterarRegistro() {
+
+		this.pessoaRepository.AlterarRegistro(this.pessoaModel);
+
+		// Recarrega os registros
+		this.init();
+	}
 
 }
