@@ -29,7 +29,8 @@
 			<p:dataTable id="dataTable-registros" var="pessoa"
 				value="#{consultarPessoaController.pessoas}" rows="15"
 				paginator="true"
-				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} 
+                                                 {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15" style="width:98%;">
 
 				<p:column headerText="Código">
@@ -45,7 +46,7 @@
 				</p:column>
 
 				<p:column headerText="Cadastro">
-					<h:outputText value="#{pessoa.dataCadastro}">
+					<h:outputText value="#pessoa.dataCadastro}">
 						<format:LocalDateTimeConverter pattern="dd/MM/yyyy HH:mm:ss" />
 					</h:outputText>
 				</p:column>
@@ -77,6 +78,11 @@
 				</p:column>
 
 				<p:column headerText="" style="width:25px;">
+
+					<p:commandButton icon="ui-icon-trash" title="Excluir Registro"
+						ajax="true"
+						actionListener="#{consultarPessoaController.ExcluirPessoa(pessoa)}"
+						update="@form" />
 
 				</p:column>
 

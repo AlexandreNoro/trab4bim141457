@@ -33,7 +33,6 @@ public class PessoaRepository {
 
 	/**
 	 * Método responsável por gravar uma nova pessoa
-	 *
 	 * @param pessoaModel
 	 */
 	public void SalvarNovoRegistro(PessoaModel pessoaModel) {
@@ -70,7 +69,7 @@ public class PessoaRepository {
 
 		Query query = entityManager.createNamedQuery("PessoaEntity.findAll");
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings("unchecked") //Serve para não aparecer o warning no método.
 		Collection<PessoaEntity> pessoasEntity = (Collection<PessoaEntity>) query.getResultList();
 
 		PessoaModel pessoaModel = null;
@@ -139,4 +138,17 @@ public class PessoaRepository {
 		entityManager.merge(pessoaEntity);
 	}
 
+	/***
+	 * Método que realiza a exclusão de um registro do banco de dados.
+	 *
+	 * @param codigo
+	 */
+	public void ExcluirRegistro(int codigo) {
+
+		entityManager = Uteis.JpaEntityManager();
+
+		PessoaEntity pessoaEntity = this.GetPessoa(codigo);
+
+		entityManager.remove(pessoaEntity);
+	}
 }

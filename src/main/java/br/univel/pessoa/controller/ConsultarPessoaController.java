@@ -17,9 +17,11 @@ import br.univel.repository.PessoaRepository;
  * @data 21 de nov de 2016 as 11:20:30
  */
 
-@Named(value = "consultarPessoaController") // anotation que transforma a classe em um bean gerenciado pelo CDI.
+@Named(value = "consultarPessoaController") // anotation que transforma a classe
+											// em um bean gerenciado pelo CDI.
 
-@ViewScoped // annotation em que o bean é mantido até a aplicação navegar para outra página.
+@ViewScoped // annotation em que o bean é mantido até a aplicação navegar para
+			// outra página.
 
 /**
  * Classe com métodos para consulta de pessoas e injeção de dependencias nos
@@ -85,8 +87,7 @@ public class ConsultarPessoaController implements Serializable {
 	}
 
 	/***
-	 * Método que realiza o carregamento das informações de uma pessoa para ser
-	 * editada
+	 * Método que realiza o carregamento das informações de uma pessoa para ser editada
 	 *
 	 * @param pessoaModel
 	 */
@@ -108,6 +109,21 @@ public class ConsultarPessoaController implements Serializable {
 
 		// Recarrega os registros
 		this.init();
+	}
+
+	/***
+	 * Método que exclui um registro
+	 *
+	 * @param pessoaModel
+	 */
+	public void ExcluirPessoa(PessoaModel pessoaModel) {
+
+		// Realiza a exclusão da pessoa do banco de dados
+		this.pessoaRepository.ExcluirRegistro(pessoaModel.getCodigo());
+
+		// Remove a pessoa da lista e assim que é removida da lista o datatable é atualizado
+		this.pessoas.remove(pessoaModel);
+
 	}
 
 }
