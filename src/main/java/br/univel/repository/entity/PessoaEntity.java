@@ -22,12 +22,15 @@ import javax.persistence.NamedQuery;
 
 
 /**
- * Responsável por retornar todos os registros cadastrados no nosso banco de dados.
+ * 1º: Responsável por retornar todos os registros cadastrados no nosso banco de dados.
+ *
+ * 2º: Query responsável por retornar o total de pessoas por origem de cadastro.
  */
 @NamedQueries({
 
-	@NamedQuery(name = "PessoaEntity.findAll",query= "SELECT p FROM PessoaEntity p")
+	@NamedQuery(name = "PessoaEntity.findAll",query= "SELECT p FROM PessoaEntity p"),
 
+	@NamedQuery(name="PessoaEntity.GroupByOrigemCadastro",query= "SELECT p.origemCadastro, count(p) as total FROM PessoaEntity p GROUP By p.origemCadastro")
 })
 
 /**

@@ -3,6 +3,7 @@ package br.univel.repository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Hashtable;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -33,6 +34,7 @@ public class PessoaRepository {
 
 	/**
 	 * Método responsável por gravar uma nova pessoa
+	 *
 	 * @param pessoaModel
 	 */
 	public void SalvarNovoRegistro(PessoaModel pessoaModel) {
@@ -69,7 +71,8 @@ public class PessoaRepository {
 
 		Query query = entityManager.createNamedQuery("PessoaEntity.findAll");
 
-		@SuppressWarnings("unchecked") //Serve para não aparecer o warning no método.
+		@SuppressWarnings("unchecked") // Serve para não aparecer o warning no
+										// método.
 		Collection<PessoaEntity> pessoasEntity = (Collection<PessoaEntity>) query.getResultList();
 
 		PessoaModel pessoaModel = null;
@@ -109,6 +112,7 @@ public class PessoaRepository {
 
 	/***
 	 * Método que realiza a consulta de uma pessoa cadastrada pelo código
+	 *
 	 * @param codigo
 	 * @return
 	 */
@@ -151,4 +155,38 @@ public class PessoaRepository {
 
 		entityManager.remove(pessoaEntity);
 	}
+
+	/***
+	 * Método que retorna os tipos de pesssoa agrupadas.
+	 * @return
+	 */
+	public Hashtable<String, Integer> GetOrigemPessoa() {
+
+		Hashtable<String, Integer> hashtableRegistros = new Hashtable<String, Integer>();
+
+		entityManager = Uteis.JpaEntityManager();
+
+		Query query = entityManager.createNamedQuery("PessoaEntity.GroupByOrigemCadastro");
+
+		@SuppressWarnings("unchecked")
+		Collection<Object[]> collectionRegistros = (Collection<Object[]>) query.getResultList();
+
+		for (Object[] objects : collectionRegistros) {
+
+			String tipoPessoa = (String) objects[0];
+			int totalDeRegistros = ((Number) objects[1]).intValue();
+
+			if (tipoPessoa.equals("X"))
+				tipoPessoa = "XML";
+			else
+				tipoPessoa = "INPUT";
+
+			hashtableRegistros.put(tipoPessoa, totalDeRegistros);
+
+		}
+
+		return hashtableRegistros;
+
+	}
+
 }
