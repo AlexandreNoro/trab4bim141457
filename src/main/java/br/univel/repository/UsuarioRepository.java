@@ -10,8 +10,8 @@ import java.io.Serializable;
 
 import javax.persistence.Query;
 
-import br.univel.entity.UsuarioEntity;
 import br.univel.model.UsuarioModel;
+import br.univel.repository.entity.UsuarioEntity;
 import br.univel.uteis.Uteis;
 
  /**

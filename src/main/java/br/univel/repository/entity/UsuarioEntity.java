@@ -1,4 +1,4 @@
-package br.univel.entity;
+package br.univel.repository.entity;
 
 /**
  * Alexandre H. Noro

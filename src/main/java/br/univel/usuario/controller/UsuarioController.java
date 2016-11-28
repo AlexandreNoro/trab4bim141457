@@ -14,9 +14,9 @@ import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
 
-import br.univel.entity.UsuarioEntity;
 import br.univel.model.UsuarioModel;
 import br.univel.repository.UsuarioRepository;
+import br.univel.repository.entity.UsuarioEntity;
 import br.univel.uteis.Uteis;
 
 @Named(value = "usuarioController")//anotation que transforma a classe em um bean gerenciado pelo CDI.
