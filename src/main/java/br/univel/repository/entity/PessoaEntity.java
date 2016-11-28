@@ -17,6 +17,7 @@ import javax.persistence.NamedQuery;
  * @data 17 de nov de 2016 as 20:24:58
  */
 
+
 @Entity // Declaração da Entidade
 @Table(name = "tb_pessoa") // Nome da tabela no banco de dados
 
